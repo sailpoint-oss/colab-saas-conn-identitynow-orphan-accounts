@@ -1,0 +1,181 @@
+{
+    "name": "Orphan Accounts",
+    "commands": [
+        "std:account:create",
+        "std:account:enable",
+        "std:account:disable",
+        "std:account:list",
+        "std:account:read",
+        "std:account:update",
+        "std:entitlement:list",
+        "std:entitlement:read",
+        "std:test-connection"
+    ],
+    "sourceConfig": [
+        {
+            "type": "menu",
+            "label": "Configuration",
+            "items": [
+                {
+                    "type": "section",
+                    "sectionTitle": "IdentityNow connection details",
+                    "sectionHelpMessage": "Add your connection details here",
+                    "items": [
+                        {
+                            "key": "idnUrl",
+                            "label": "IdentityNow API URL",
+                            "type": "text",
+                            "required": true
+                        },
+                        {
+                            "key": "patId",
+                            "label": "Personal Access Token ID",
+                            "type": "text",
+                            "required": true
+                        },
+                        {
+                            "key": "patSecret",
+                            "label": "Personal Access Token secret",
+                            "type": "secret",
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "type": "section",
+                    "sectionTitle": "Configuration details",
+                    "sectionHelpMessage": "Add your configuration details here",
+                    "items": [
+                        {
+                            "key": "includedSources",
+                            "label": "List of sources to include",
+                            "type": "list",
+                            "required": true
+                        },
+                        {
+                            "key": "enableOrphanIdentities",
+                            "label": "Enable orphan identities?",
+                            "type": "checkbox",
+                            "required": true
+                        },
+                        {
+                            "key": "makeEntitlementsRequestable",
+                            "label": "Make entitlements requestable?",
+                            "type": "checkbox",
+                            "required": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "accountSchema": {
+        "displayAttribute": "displayName",
+        "identityAttribute": "id",
+        "groupAttribute": "id",
+        "attributes": [
+            {
+                "name": "id",
+                "type": "string",
+                "description": "",
+                "entitlement": true,
+                "managed": true
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "displayName",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "tag",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "description",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "enabled",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "locked",
+                "type": "string",
+                "description": ""
+            },
+            {
+                "name": "source",
+                "type": "string",
+                "description": ""
+            }
+        ]
+    },
+    "entitlementSchemas": [
+        {
+            "type": "group",
+            "identityAttribute": "id",
+            "displayAttribute": "displayName",
+            "attributes": [
+                {
+                    "name": "id",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "displayName",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "description",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "enabled",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "locked",
+                    "type": "string",
+                    "description": ""
+                },
+                {
+                    "name": "source",
+                    "type": "string",
+                    "description": ""
+                }
+            ]
+        }
+    ],
+    "accountCreateTemplate": {
+        "fields": [
+            {
+                "key": "name",
+                "label": "Name",
+                "type": "string",
+                "required": true,
+                "initialValue": {
+                    "type": "identityAttribute",
+                    "attributes": {
+                        "name": "uid"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+# macOS General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# Intellij
+.idea/
+*.iml
+
+# Dependency directories
+node_modules/
+
+# Compiled source
+dist/
+coverage/
+
+# Custom
+/tests
+package-lock.json
