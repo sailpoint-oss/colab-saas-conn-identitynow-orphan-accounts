@@ -8,6 +8,7 @@ import {
     Response,
     StdAccountCreateInput,
     StdAccountCreateOutput,
+    StdAccountListInput,
     StdAccountListOutput,
     StdAccountReadInput,
     StdAccountReadOutput,
@@ -65,7 +66,7 @@ export const connector = async () => {
                 res.send({})
             }
         })
-        .stdAccountList(async (context: Context, input: undefined, res: Response<StdAccountListOutput>) => {
+        .stdAccountList(async (context: Context, input: StdAccountListInput, res: Response<StdAccountListOutput>) => {
             if (config.enableOrphanIdentities) {
                 const response: AxiosResponse = await client.collectOrphanAccounts()
                 for (const acc of response.data) {
