@@ -21,3 +21,4 @@ coverage/
 # Custom
 /tests
 package-lock.json
+/reports

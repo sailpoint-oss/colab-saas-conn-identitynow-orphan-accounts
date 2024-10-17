@@ -18,51 +18,37 @@
             "items": [
                 {
                     "type": "section",
-                    "sectionTitle": "IdentityNow connection details",
-                    "sectionHelpMessage": "Add your connection details here",
+                    "sectionTitle": "Identity Security Cloud connection configuration",
+                    "sectionHelpMessage": "Configuration details for Identity Security Cloud Tenant",
                     "items": [
                         {
-                            "key": "idnUrl",
-                            "label": "IdentityNow API URL",
-                            "type": "text",
+                            "key": "baseurl",
+                            "label": "Identity Security Cloud API URL",
+                            "type": "url",
                             "required": true
                         },
                         {
-                            "key": "patId",
+                            "key": "clientId",
                             "label": "Personal Access Token ID",
                             "type": "text",
                             "required": true
                         },
                         {
-                            "key": "patSecret",
+                            "key": "clientSecret",
                             "label": "Personal Access Token secret",
                             "type": "secret",
                             "required": true
-                        }
-                    ]
-                },
-                {
-                    "type": "section",
-                    "sectionTitle": "Configuration details",
-                    "sectionHelpMessage": "Add your configuration details here",
-                    "items": [
+                        },
                         {
-                            "key": "includedSources",
+                            "key": "sources",
                             "label": "List of sources to include",
                             "type": "list",
                             "required": true
                         },
                         {
-                            "key": "enableOrphanIdentities",
-                            "label": "Enable orphan identities?",
-                            "type": "checkbox",
-                            "required": true
-                        },
-                        {
-                            "key": "makeEntitlementsRequestable",
-                            "label": "Make entitlements requestable?",
-                            "type": "checkbox",
-                            "required": true
+                            "key": "onlyEnabled",
+                            "label": "Only aggregate enabled accounts",
+                            "type": "checkbox"
                         }
                     ]
                 }
