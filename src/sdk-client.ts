@@ -7,14 +7,15 @@ import {
     AccountsApiGetAccountRequest,
     AccountsApiListAccountsRequest,
     IdentityDocument,
-    JsonPatchOperation,
     PublicIdentitiesApi,
 } from 'sailpoint-api-client/dist/v3'
 import { URL } from 'url'
 import { logger } from '@sailpoint/connector-sdk'
-import { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosInstance, AxiosResponseHeaders } from 'axios'
+import axiosThrottle from 'axios-request-throttle'
 
 const TOKEN_URL_PATH = '/oauth/token'
+const REQUESTSPERSECOND = 10
 
 export class SDKClient {
     private config: Configuration
@@ -24,13 +25,16 @@ export class SDKClient {
         this.config = new Configuration({ ...config, tokenUrl })
         this.config.retriesConfig = {
             retries: 5,
-            // retryDelay: (retryCount) => { return retryCount * 2000; },
-            retryDelay: (retryCount, error) =>
-                axiosRetry.exponentialDelay(retryCount, error as AxiosError<unknown, any>, 2000),
+            retryDelay: (number, error): number => {
+                const headers = error.response!.headers as AxiosResponseHeaders
+                const retryAfter = headers.get('retry-after') as number
+
+                return retryAfter ? retryAfter : 10 * 1000
+            },
             retryCondition: (error) => {
                 return (
-                    axiosRetry.isNetworkError(error as AxiosError<unknown, any>) ||
-                    axiosRetry.isRetryableError(error as AxiosError<unknown, any>) ||
+                    axiosRetry.isNetworkError(error) ||
+                    axiosRetry.isRetryableError(error) ||
                     error.response?.status === 429
                 )
             },
@@ -41,6 +45,7 @@ export class SDKClient {
                 logger.error(error)
             },
         }
+        axiosThrottle.use(axios as any, { requestsPerSecond: REQUESTSPERSECOND })
     }
 
     async publicIdentities() {

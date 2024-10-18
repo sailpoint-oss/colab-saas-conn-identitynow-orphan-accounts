@@ -13,10 +13,11 @@
     },
     "private": true,
     "dependencies": {
-        "@sailpoint/connector-sdk": "1.1.11",
+        "@sailpoint/connector-sdk": "1.1.13",
+        "axios": "^1.6.8",
         "axios-retry": "^4.0.0",
+        "axios-request-throttle": "^1.0.0",
         "form-data": "^4.0.0",
-        "orphan-accounts": "file:",
         "sailpoint-api-client": "1.4.8"
     },
     "devDependencies": {
