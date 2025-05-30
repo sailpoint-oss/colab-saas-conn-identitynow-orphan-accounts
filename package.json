@@ -1,6 +1,6 @@
 {
     "name": "orphan-accounts",
-    "version": "0.3.4",
+    "version": "0.4.0",
     "main": "dist/index.js",
     "scripts": {
         "clean": "shx rm -rf ./dist",
@@ -13,12 +13,11 @@
     },
     "private": true,
     "dependencies": {
-        "@sailpoint/connector-sdk": "1.1.13",
-        "axios": "^1.6.8",
+        "@sailpoint/connector-sdk": "1.1.24",
+        "sailpoint-api-client": "^1.6.1",
         "axios-retry": "^4.0.0",
-        "axios-request-throttle": "^1.0.0",
         "form-data": "^4.0.0",
-        "sailpoint-api-client": "1.4.8"
+        "orphan-accounts": "file:"
     },
     "devDependencies": {
         "@types/node": "^22.1.0",

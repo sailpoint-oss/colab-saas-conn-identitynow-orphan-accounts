@@ -11,11 +11,9 @@ import {
 } from 'sailpoint-api-client/dist/v3'
 import { URL } from 'url'
 import { logger } from '@sailpoint/connector-sdk'
-import axios, { AxiosError, AxiosInstance, AxiosResponseHeaders } from 'axios'
-import axiosThrottle from 'axios-request-throttle'
+import { AxiosError } from 'axios'
 
 const TOKEN_URL_PATH = '/oauth/token'
-const REQUESTSPERSECOND = 10
 
 export class SDKClient {
     private config: Configuration
@@ -25,12 +23,8 @@ export class SDKClient {
         this.config = new Configuration({ ...config, tokenUrl })
         this.config.retriesConfig = {
             retries: 5,
-            retryDelay: (number, error): number => {
-                const headers = error.response!.headers as AxiosResponseHeaders
-                const retryAfter = headers.get('retry-after') as number
-
-                return retryAfter ? retryAfter : 10 * 1000
-            },
+            // retryDelay: (retryCount) => { return retryCount * 2000; },
+            retryDelay: (retryCount, error) => axiosRetry.exponentialDelay(retryCount, error, 2000),
             retryCondition: (error) => {
                 return (
                     axiosRetry.isNetworkError(error) ||
@@ -45,7 +39,6 @@ export class SDKClient {
                 logger.error(error)
             },
         }
-        axiosThrottle.use(axios as any, { requestsPerSecond: REQUESTSPERSECOND })
     }
 
     async publicIdentities() {
