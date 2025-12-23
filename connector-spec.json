@@ -1,5 +1,7 @@
 {
     "name": "Orphan Accounts",
+    "supportsCustomSchemas": true,
+    "showDebugLoggingOption": true,
     "commands": [
         "std:account:create",
         "std:account:enable",
@@ -14,7 +16,7 @@
     "sourceConfig": [
         {
             "type": "menu",
-            "label": "Configuration",
+            "label": "Connection Details",
             "items": [
                 {
                     "type": "section",
@@ -38,7 +40,20 @@
                             "label": "Personal Access Token secret",
                             "type": "secret",
                             "required": true
-                        },
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "menu",
+            "label": "Configuration",
+            "items": [
+                {
+                    "type": "section",
+                    "sectionTitle": "Orphan Accounts configuration",
+                    "sectionHelpMessage": "Configuration details for orphan accounts management",
+                    "items": [
                         {
                             "key": "sources",
                             "label": "List of sources to include",
